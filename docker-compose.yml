@@ -29,8 +29,8 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: doutorequemtemdoutorado  #
-      MYSQL_DATABASE: books
-      MYSQL_USER: books
+      MYSQL_DATABASE: reviews
+      MYSQL_USER: reviews
       MYSQL_PASSWORD: doutorequemtemdoutorado
     ports:
       - "3308:3306"
