@@ -1,6 +1,5 @@
 package com.books.books.entity;
 
-import com.books.books.dto.AuthorCreateRequest;
 import com.books.books.dto.BookCreateRequest;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.persistence.*;
@@ -19,15 +18,17 @@ public class Book {
     private Long id;
     private String name;
     private Integer year;
-    private Long author_id;
     private Boolean active;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id", nullable = false)
+    private Author author;
 
     @WithSpan
     public Book(BookCreateRequest book) {
         this.active = true;
-        this.name = book.name();
-        this.year = book.year();
-        this.author_id = book.author_id();
+        this.name   = book.name();
+        this.year   = book.year();
     }
 
 }
