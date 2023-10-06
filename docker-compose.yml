@@ -42,6 +42,25 @@ services:
     ports:
       - "6379:6379"
 
+  books-api:
+    build: ./books
+    environment: 
+      OTEL_SERVICE_NAME: books-api
+      OTEL_TRACES_EXPORTER: zipkin
+      OTEL_EXPORTER_ZIPKIN_ENDPOINT: http://jaeger:9411/api/v2/spans
+      OTEL_METRICS_EXPORTER: none
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: "com.mysql.cj.jdbc.Driver"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/books"
+      SPRING_DATASOURCE_USERNAME: "books"
+      SPRING_DATASOURCE_PASSWORD: "doutorequemtemdoutorado"
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: false
+      SPRING_JPA_SHOW_SQL: true
+    ports:
+      - "8090:8080"
+
+
+# JAVA_TOOL_OPTIONS="-javaagent:pkg/opentelemetry-javaagent.jar";OTEL_TRACES_EXPORTER=zipkin;OTEL_METRICS_EXPORTER=none;OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://localhost:9411/api/v2/spans;OTEL_SERVICE_NAME=bosta
+
 volumes:
   mysql_data:
   mysql_review_data:
