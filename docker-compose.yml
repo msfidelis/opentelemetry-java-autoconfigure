@@ -42,6 +42,18 @@ services:
     ports:
       - "6379:6379"
 
+  spring-gateway:
+    build: ./gateway
+    environment: 
+      OTEL_SERVICE_NAME: spring-gateway
+      OTEL_TRACES_EXPORTER: zipkin
+      OTEL_EXPORTER_ZIPKIN_ENDPOINT: http://jaeger:9411/api/v2/spans
+      OTEL_METRICS_EXPORTER: none
+      BOOKS_ENDPOINT: http://books-api:8080
+      REVIEWS_ENDPOINT: http://reviews-api:8080
+    ports:
+      - "8080:8080"      
+
   books-api:
     build: ./books
     environment: 
@@ -57,9 +69,8 @@ services:
       SPRING_JPA_SHOW_SQL: true
     ports:
       - "8090:8080"
-
-
-# JAVA_TOOL_OPTIONS="-javaagent:pkg/opentelemetry-javaagent.jar";OTEL_TRACES_EXPORTER=zipkin;OTEL_METRICS_EXPORTER=none;OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://localhost:9411/api/v2/spans;OTEL_SERVICE_NAME=bosta
+    depends_on:
+      - mysql
 
 volumes:
   mysql_data:
