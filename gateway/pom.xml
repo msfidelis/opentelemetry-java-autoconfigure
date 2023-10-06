@@ -14,8 +14,9 @@
 	<name>gateway</name>
 	<description>Spring Gateway Example</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
+		<start-class>com.books.gateway.GatewayApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
