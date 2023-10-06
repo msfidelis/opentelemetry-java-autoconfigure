@@ -23,9 +23,9 @@ public class GatewayApplication {
 	@Bean
 	public RouteLocator routers(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route(r -> r.path("/books/**").filters(f -> f.prefixPath("/")).uri(booksURI))
-				.route(r -> r.path("/author/**").filters(f -> f.prefixPath("/")).uri(booksURI))
-				.route(r -> r.path("/reviews/**").filters(f -> f.prefixPath("/")).uri(reviewsURI))
+				.route("Books Route", r -> r.path("/books/**").filters(f -> f.prefixPath("/")).uri(booksURI))
+				.route("Authors Route",  r -> r.path("/author/**").filters(f -> f.prefixPath("/")).uri(booksURI))
+				.route("Reviews Route", r -> r.path("/reviews/**").filters(f -> f.prefixPath("/")).uri(reviewsURI))
 				.build();
 	}
 }
