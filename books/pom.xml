@@ -15,6 +15,7 @@
 	<description>Books Store</description>
 	<properties>
 		<java.version>21</java.version>
+		<start-class>com.books.books.BooksApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -109,6 +110,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.books.books.BooksApplication</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
