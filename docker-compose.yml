@@ -52,7 +52,7 @@ services:
       BOOKS_ENDPOINT: http://books-api:8080
       REVIEWS_ENDPOINT: http://reviews-api:8080
     ports:
-      - "8080:8080"      
+      - "9000:8080"      
 
   books-api:
     build: ./books
