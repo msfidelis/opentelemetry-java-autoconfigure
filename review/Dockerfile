@@ -1,6 +1,22 @@
-FROM maven:3.8.3-jdk-11-slim AS build
+FROM openjdk:21-jdk
+
 WORKDIR /app
+
+COPY .mvn .mvn
+COPY mvnw .
 COPY pom.xml .
-RUN mvn dependency:go-offline
 COPY src src
-RUN mvn clean package
+
+RUN ./mvnw clean package
+
+
+# ADD OTEL Java Agent
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar opentelemetry-javaagent.jar
+
+ENV JAVA_TOOL_OPTIONS="-javaagent:./opentelemetry-javaagent.jar"
+
+RUN mv target/*.jar app.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "app.jar"]

@@ -72,6 +72,25 @@ services:
     depends_on:
       - mysql
 
+  reviews-api:
+    build: ./review
+    environment: 
+      OTEL_SERVICE_NAME: reviews-api
+      OTEL_TRACES_EXPORTER: zipkin
+      OTEL_EXPORTER_ZIPKIN_ENDPOINT: http://jaeger:9411/api/v2/spans
+      OTEL_METRICS_EXPORTER: none
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: "com.mysql.cj.jdbc.Driver"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-reviews:3306/reviews"
+      SPRING_DATASOURCE_USERNAME: "reviews"
+      SPRING_DATASOURCE_PASSWORD: "doutorequemtemdoutorado"
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: false
+      SPRING_JPA_SHOW_SQL: true
+      REVIEWS_BOOKS_ENDPOINT: "http://books-api:8080"
+    ports:
+      - "8070:8080"
+    depends_on:
+      - mysql-reviews
+
 volumes:
   mysql_data:
   mysql_review_data:
