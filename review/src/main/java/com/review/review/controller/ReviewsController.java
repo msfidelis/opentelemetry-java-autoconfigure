@@ -2,6 +2,7 @@ package com.review.review.controller;
 
 import com.review.review.dto.ErrorResponse;
 import com.review.review.dto.ReviewCreateRequest;
+import com.review.review.dto.ReviewListResponse;
 import com.review.review.entity.Review;
 import com.review.review.requests.BookResponse;
 import com.review.review.service.ReviewService;
@@ -12,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Book;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reviews")
@@ -35,8 +39,12 @@ public class ReviewsController {
 
     @GetMapping
     public ResponseEntity detail(@RequestParam("book") Long book_id) {
-
-        return new ResponseEntity(book_id, HttpStatus.OK);
+        List<Review> reviews = reviewService.getReviews(book_id);
+        List<ReviewListResponse> response = reviews
+                .stream()
+                .map(ReviewListResponse::new)
+                .collect(Collectors.toList());
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 
 

@@ -20,7 +20,7 @@ public class Review {
 
     private Float rate;
 
-    private Long id_book;
+    private Long idBook;
 
     private String review;
 
@@ -29,7 +29,7 @@ public class Review {
     public Review(ReviewCreateRequest review) {
         this.active = true;
         this.rate = review.rate();
-        this.id_book = review.book_id();
+        this.idBook = review.book_id();
         this.review = review.review();
     }
 }
