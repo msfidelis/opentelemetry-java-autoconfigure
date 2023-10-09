@@ -154,7 +154,7 @@ transfer-encoding: chunked
 Content-Type: application/json
 Date: Mon, 09 Oct 2023 21:29:12 GMT
 
-{"id":181,"rate":5.0,"idBook":28,"review":"kkkkkkkk top dms slc man","active":true
+{"id":181,"rate":5.0,"book_id":28,"review":"kkkkkkkk top dms slc man","active":true
 ```
 
 
