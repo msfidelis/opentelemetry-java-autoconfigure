@@ -2,6 +2,7 @@ package com.review.review.entity;
 
 
 import com.review.review.dto.ReviewCreateRequest;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class Review {
 
     private Boolean active;
 
+    @WithSpan
     public Review(ReviewCreateRequest review) {
         this.active = true;
         this.rate = review.rate();

@@ -5,8 +5,11 @@ import com.review.review.entity.Review;
 import com.review.review.repository.ReviewRepository;
 import com.review.review.requests.BookClient;
 import com.review.review.requests.BookResponse;
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,13 +26,14 @@ public class ReviewService {
     private BookClient bookClient;
 
     @WithSpan
-    public Review create(Review review) {
+    @CacheEvict(value = "Reviews", key = "#review.idBook")
+    public Review create(@SpanAttribute("review") Review review) {
         repository.save(review);
         return review;
     }
 
     @WithSpan
-    public BookResponse fetchBook(Long id_book) {
+    public BookResponse fetchBook(@SpanAttribute("id_book") Long id_book) {
         try {
             return bookClient.getBookById(id_book);
         } catch (Exception e) {
@@ -38,7 +42,9 @@ public class ReviewService {
         }
     }
 
-    public List<Review> getReviews(Long id_book) {
+    @WithSpan
+    @Cacheable(value = "Reviews", key = "#id_book")
+    public List<Review> getReviews(@SpanAttribute("id_book") Long id_book) {
         List<Review> reviews = repository.findByIdBook(id_book);
         return reviews;
     }

@@ -85,7 +85,10 @@ services:
       SPRING_DATASOURCE_PASSWORD: "doutorequemtemdoutorado"
       SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: false
       SPRING_JPA_SHOW_SQL: true
+      SPRING_REDIS_HOST: "redis"
+      SPRING_REDIS_PORT: "6379"
       REVIEWS_BOOKS_ENDPOINT: "http://books-api:8080"
+      LOGGING_LEVEL.ROOT: DEBUG
     ports:
       - "8070:8080"
     depends_on:

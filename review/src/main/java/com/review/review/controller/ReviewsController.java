@@ -6,15 +6,13 @@ import com.review.review.dto.ReviewListResponse;
 import com.review.review.entity.Review;
 import com.review.review.requests.BookResponse;
 import com.review.review.service.ReviewService;
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,7 +23,7 @@ public class ReviewsController {
     private ReviewService reviewService;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody ReviewCreateRequest body) {
+    public ResponseEntity create(@SpanAttribute("request") @RequestBody ReviewCreateRequest body) {
         BookResponse book = reviewService.fetchBook(body.book_id());
 
         if (book == null) {
@@ -38,7 +36,7 @@ public class ReviewsController {
     }
 
     @GetMapping
-    public ResponseEntity detail(@RequestParam("book") Long book_id) {
+    public ResponseEntity detail(@SpanAttribute("book") @RequestParam("book") Long book_id) {
         List<Review> reviews = reviewService.getReviews(book_id);
         List<ReviewListResponse> response = reviews
                 .stream()
