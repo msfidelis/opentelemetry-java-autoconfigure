@@ -1,10 +1,10 @@
 # Open Telemetry Auto Traces - Example
 
-* Feign HTTP Client
-* HTTP Client - Spring Cloud Gateway
-* @WithSpan Methods 
-* Redis Operations 
-* Hibernate Operations
+* [Feign HTTP Client](https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/)
+* [HTTP Client - Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway)
+* [@WithSpan and @SpanAttribute Annotations](https://opentelemetry.io/docs/instrumentation/java/automatic/annotations/) 
+* [Spring Data Redis Operations / Jedis](https://spring.io/projects/spring-data-redis)
+* [Hibernate Operations / Spring Data JPA](https://spring.io/projects/spring-data-jpa)
 
 # Project Architecture
 
@@ -76,6 +76,27 @@ CMD ["java", "-jar", "app.jar"]
       OTEL_EXPORTER_ZIPKIN_ENDPOINT: http://jaeger:9411/api/v2/spans
       OTEL_METRICS_EXPORTER: none
     // ...
+```
+
+## Annotate with @WithSpan and @SpanAttribute
+
+```java
+    @WithSpan
+    public BookResponse fetchBook(@SpanAttribute("id_book") Long id_book) {
+        try {
+            return bookClient.getBookById(id_book);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @WithSpan
+    @Cacheable(value = "Reviews", key = "#id_book")
+    public List<Review> getReviews(@SpanAttribute("id_book") Long id_book) {
+        List<Review> reviews = repository.findByIdBook(id_book);
+        return reviews;
+    }
 ```
 
 ## Test Requests 
