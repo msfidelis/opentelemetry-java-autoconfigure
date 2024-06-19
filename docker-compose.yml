@@ -49,6 +49,7 @@ services:
       OTEL_TRACES_EXPORTER: zipkin
       OTEL_EXPORTER_ZIPKIN_ENDPOINT: http://jaeger:9411/api/v2/spans
       OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: none
       BOOKS_ENDPOINT: http://books-api:8080
       REVIEWS_ENDPOINT: http://reviews-api:8080
     ports:
@@ -61,6 +62,7 @@ services:
       OTEL_TRACES_EXPORTER: zipkin
       OTEL_EXPORTER_ZIPKIN_ENDPOINT: http://jaeger:9411/api/v2/spans
       OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: none
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: "com.mysql.cj.jdbc.Driver"
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/books"
       SPRING_DATASOURCE_USERNAME: "books"
@@ -79,6 +81,7 @@ services:
       OTEL_TRACES_EXPORTER: zipkin
       OTEL_EXPORTER_ZIPKIN_ENDPOINT: http://jaeger:9411/api/v2/spans
       OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: none
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: "com.mysql.cj.jdbc.Driver"
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-reviews:3306/reviews"
       SPRING_DATASOURCE_USERNAME: "reviews"

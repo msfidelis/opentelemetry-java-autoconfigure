@@ -128,7 +128,7 @@ curl --request POST \
   --data '{
         "name": "As melhores do Ari Toledo",
         "year": 2012,
-        "author_id": 4
+        "author_id": 1
 }' -i
 
 HTTP/1.1 201 Created
@@ -145,7 +145,7 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --header 'User-Agent: insomnia/8.2.0' \
   --data '{
-        "book_id": 28 ,
+        "book_id": 1 ,
         "rate": 5,
         "review": "kkkkkkkk top dms slc man"
 }' -i

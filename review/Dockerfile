@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk
+FROM fidelissauro/apko-jdk21:latest-arm64
 
 WORKDIR /app
 
